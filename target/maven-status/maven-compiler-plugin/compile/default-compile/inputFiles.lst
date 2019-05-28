@@ -1,0 +1,13 @@
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/ContentServiceApplication.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/authorsbooks/AuthorsBooksRepository.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/book/BookService.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/authorsbooks/AuthorsBooks.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/book/BookDto.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/markedtoread/MarkedToRead.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/authorsbooks/AuthorsBooksController.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/authorsbooks/AuthorsBooksDto.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/book/Book.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/book/BookRepository.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/book/BookEntityNotFoundException.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/authorsbooks/AuthorsBooksService.java
+/home/quenar/Desktop/DLS/Project/SourceCode/content-service/src/main/java/com/gg/netbook/contentservice/book/BookController.java
