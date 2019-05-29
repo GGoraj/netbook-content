@@ -1,11 +1,2 @@
-com/gg/netbook/contentservice/authorsbooks/AuthorsBooksService.class
-com/gg/netbook/contentservice/book/BookDto.class
-com/gg/netbook/contentservice/authorsbooks/AuthorsBooksDto.class
-com/gg/netbook/contentservice/authorsbooks/AuthorsBooksController.class
+com/gg/netbook/contentservice/authors/AuthorDao.class
 com/gg/netbook/contentservice/ContentServiceApplication.class
-com/gg/netbook/contentservice/book/BookController.class
-com/gg/netbook/contentservice/book/BookService.class
-com/gg/netbook/contentservice/book/BookEntityNotFoundException.class
-com/gg/netbook/contentservice/book/Book.class
-com/gg/netbook/contentservice/book/BookRepository.class
-com/gg/netbook/contentservice/authorsbooks/AuthorsBooksRepository.class

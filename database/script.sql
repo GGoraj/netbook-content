@@ -77,3 +77,6 @@ FROM '/home/quenar/Desktop/DLS/Project/netbook/netbook-content/database/authors.
 
 COPY booksauthors(bookid, authorid)
 FROM '/home/quenar/Desktop/DLS/Project/netbook/netbook-content/database/booksauthors.csv' DELIMITER ',' CSV HEADER;
+
+
+create extension unaccent;

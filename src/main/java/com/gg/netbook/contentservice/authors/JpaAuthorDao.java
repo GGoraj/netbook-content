@@ -1,21 +1,25 @@
 package com.gg.netbook.contentservice.authors;
 
-import com.gg.netbook.contentservice.interfaces.Dao;
-import com.netflix.discovery.converters.Auto;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.lucene.search.Query;
+import org.hibernate.search.engine.ProjectionConstants;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
 
 @Component
-public class JpaAuthorDao implements Dao<Author> {
+public class JpaAuthorDao implements AuthorDao<Author> {
 
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
 
@@ -27,9 +31,11 @@ public class JpaAuthorDao implements Dao<Author> {
 
     @Override
     public List<Author> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Author e");
+
+        javax.persistence.Query query = entityManager.createQuery("select e from Author e");
         return query.getResultList();
-    }
+
+     }
 
     @Override
     public void save(Author author) {
@@ -44,5 +50,40 @@ public class JpaAuthorDao implements Dao<Author> {
     @Override
     public void delete(Author author) {
 
+    }
+
+
+    public List<Author> searchFuzzyAuthorName(String text) {
+
+        Query fuzzyQuery = getQueryBuilder()
+                .keyword()
+                .fuzzy()
+                .withEditDistanceUpTo(2)
+                .withPrefixLength(0)
+                .onField("fullName")
+                .matching(text)
+                .createQuery();
+
+        List<Author> results = getJpaQuery(fuzzyQuery).getResultList();
+
+        return results;
+    }
+
+
+    private FullTextQuery getJpaQuery(org.apache.lucene.search.Query luceneQuery) {
+
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+        return fullTextEntityManager.createFullTextQuery(luceneQuery, Author.class);
+    }
+
+    private QueryBuilder getQueryBuilder() {
+
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+        return fullTextEntityManager.getSearchFactory()
+                .buildQueryBuilder()
+                .forEntity(Author.class)
+                .get();
     }
 }

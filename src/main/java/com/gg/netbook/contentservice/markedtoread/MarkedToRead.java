@@ -1,14 +1,14 @@
-/*
 package com.gg.netbook.contentservice.markedtoread;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name="markedtoread")
-public class MarkedToRead {
+public class MarkedToRead implements Serializable {
 
     @Id
     @Column(name="userid")
@@ -36,4 +36,3 @@ public class MarkedToRead {
     }
 
 }
-*/

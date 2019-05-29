@@ -1,9 +1,13 @@
 package com.gg.netbook.contentservice.authors;
 
 
+import org.hibernate.search.annotations.*;
+import org.springframework.stereotype.Indexed;
+
 import javax.persistence.*;
 
 @Entity
+@Indexed
 @Table(name = "authors")
 public class Author {
 
@@ -12,7 +16,9 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer authorId;
 
+
     @Column(name="fullname")
+    @Field
     public String fullName;
 
 

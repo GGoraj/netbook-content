@@ -28,4 +28,9 @@ public class AuthorController {
         return authorDao.get(id);
     }
 
+    // Full Text search - Name
+    @GetMapping("/authors/fuzzy/{name}")
+    public List<Author> getAuthorFullSearch(@PathVariable("name") String name){
+        return authorDao.searchFuzzyAuthorName(name);
+    }
 }
