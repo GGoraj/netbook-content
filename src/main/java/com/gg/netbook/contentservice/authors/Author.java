@@ -2,7 +2,7 @@ package com.gg.netbook.contentservice.authors;
 
 
 import org.hibernate.search.annotations.*;
-import org.springframework.stereotype.Indexed;
+
 
 import javax.persistence.*;
 
@@ -14,6 +14,7 @@ public class Author {
     @Id
     @Column(name="authorid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     public Integer authorId;
 
 

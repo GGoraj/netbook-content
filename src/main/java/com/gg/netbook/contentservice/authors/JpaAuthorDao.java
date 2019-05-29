@@ -55,18 +55,28 @@ public class JpaAuthorDao implements AuthorDao<Author> {
 
     public List<Author> searchFuzzyAuthorName(String text) {
 
-        Query fuzzyQuery = getQueryBuilder()
+       /* Query fuzzyQuery = getQueryBuilder()
                 .keyword()
                 .fuzzy()
-                .withEditDistanceUpTo(2)
+                //.withEditDistanceUpTo(2)
                 .withPrefixLength(0)
                 .onField("fullName")
                 .matching(text)
                 .createQuery();
+*/
 
-        List<Author> results = getJpaQuery(fuzzyQuery).getResultList();
+        Query q = getQueryBuilder()
+                .simpleQueryString()
+                .onFields("fullName")
+                .matching(text)
+                .createQuery();
 
-        return results;
+
+        int results = getJpaQuery(q).getResultSize();
+        System.out.println("Result size is : " + results);
+
+        List<Author> resultList = getJpaQuery(q).getResultList();
+        return resultList;
     }
 
 
