@@ -1,4 +1,4 @@
-package com.gg.netbook.contentservice.book;
+package com.gg.netbook.contentservice.books;
 
 public class BookEntityNotFoundException extends RuntimeException {
 

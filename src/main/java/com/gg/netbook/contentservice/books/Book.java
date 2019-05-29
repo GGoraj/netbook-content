@@ -1,19 +1,44 @@
-package com.gg.netbook.contentservice.book;
+package com.gg.netbook.contentservice.books;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
-public class BookDto {
+@Entity
+@Table(name = "books")
+public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookid;
+
+    @Column(name="goodreadsbookid")
     private Integer goodReadsBookId;
+
+    @Column(name="isbn")
     private String isbn;
+
+    @Column(name="originalpublicationyear")
     private String originalPublicationYear;
+
+    @Column(name="originaltitle")
     private String originalTitle;
+
+    @Column(name="internationaltitle")
     private String internationalTitle;
+
+    @Column(name="languagecode")
     private String languageCode;
+
+    @Column(name="averagerating")
     private BigDecimal averageRating;
+
+    @Column(name="ratingscount")
     private Integer ratingsCount;
+
+    @Column(name="imageurl")
     private String imageUrl;
+
+    @Column(name="smallimageurl")
     private String smallImageUrl;
 
     public Integer getBookid() {
@@ -103,4 +128,10 @@ public class BookDto {
     public void setSmallImageUrl(String smallImageUrl) {
         this.smallImageUrl = smallImageUrl;
     }
+
+
+
+
+
+
 }

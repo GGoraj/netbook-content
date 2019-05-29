@@ -1,11 +1,23 @@
 package com.gg.netbook.contentservice.authorsbooks;
 
 
-public class AuthorsBooksDto {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
+@Entity
+@Table(name="booksauthors")
+public class BooksAuthors implements Serializable {
+
+    @Id
+    @Column(name="authorid")
     private Integer authorId;
-    private Integer bookId;
 
+    @Id
+    @Column(name="bookid")
+    private Integer bookId;
 
     public Integer getAuthorId() {
         return authorId;
@@ -22,4 +34,5 @@ public class AuthorsBooksDto {
     public void setBookId(Integer bookId) {
         this.bookId = bookId;
     }
+
 }

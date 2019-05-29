@@ -1,4 +1,4 @@
-package com.gg.netbook.contentservice.book;
+package com.gg.netbook.contentservice.books;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
