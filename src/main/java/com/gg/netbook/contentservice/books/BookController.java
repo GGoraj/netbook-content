@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/")
 public class BookController {
@@ -12,6 +13,7 @@ public class BookController {
     @Autowired BookService service;
 
     @GetMapping("/allbooks")
+    @CrossOrigin(origins = "*")
     public List<Book> getAllBooks(){
         return service.getAllBooks();
     }
