@@ -2,6 +2,7 @@ package com.gg.netbook.contentservice.authors;
 
 
 import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class Author {
 
 
     @Column(name="fullname")
-    @Field
+    @Field(termVector = TermVector.YES)
     public String fullName;
 
 
@@ -30,10 +31,6 @@ public class Author {
     public Author(String fullName) {
         this.fullName = fullName;
     }
-
-
-
-
 
     public Integer getAuthorId() {
         return authorId;
