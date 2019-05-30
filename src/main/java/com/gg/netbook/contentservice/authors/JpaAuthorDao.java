@@ -22,15 +22,9 @@ import java.util.Optional;
 public class JpaAuthorDao implements AuthorDao<Author> {
 
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
-
-    public JpaAuthorDao() {
-
-
-
-    }
 
     @Override
     public Optional<Author> get(int authorId) {
