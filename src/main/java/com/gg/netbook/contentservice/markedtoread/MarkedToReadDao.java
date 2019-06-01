@@ -1,12 +1,12 @@
-/*
 package com.gg.netbook.contentservice.markedtoread;
 
+import com.gg.netbook.contentservice.book.Book;
+
 import java.util.List;
-import java.util.Optional;
 
 public interface MarkedToReadDao<T> {
 
-    Optional<T> get(int id);
+    List<Book> get(int user_id);
 
     List<T> getAll();
 
@@ -17,4 +17,3 @@ public interface MarkedToReadDao<T> {
     void delete(T t);
 
 }
-*/

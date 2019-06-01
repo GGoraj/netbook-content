@@ -18,9 +18,10 @@ CREATE TABLE Book
 );
 
 CREATE TABLE MarkedToRead(
+  id serial NOT Null,
   user_id INTEGER,
   book_id INTEGER REFERENCES book(id) ON DELETE CASCADE,
-  PRIMARY KEY (user_id, book_id)
+  PRIMARY KEY (id)
 );
 
 
