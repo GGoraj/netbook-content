@@ -37,11 +37,9 @@ public class JpaBookDao implements BookDao<Book> {
     }
 
     @Override
-    public String getBookAuthors(int id) {
+    public Set<Author> getBookAuthors(int id) {
         Optional<Book> book = Optional.ofNullable(em.find(Book.class, id));
-        Set<Author> authors = (Set<Author>) book.get().authors;
-        System.out.println(authors.toString());
-        return authors.toString();
+        return book.get().authors;
     }
 
 

@@ -1,7 +1,10 @@
 package com.gg.netbook.contentservice.book;
 
+import com.gg.netbook.contentservice.author.Author;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface BookDao<T> {
 
@@ -10,7 +13,7 @@ public interface BookDao<T> {
 
     List<T> getAll(int limit);
 
-    String getBookAuthors(int id);
+    Set<Author> getBookAuthors(int id);
 
     void save(T t);
 

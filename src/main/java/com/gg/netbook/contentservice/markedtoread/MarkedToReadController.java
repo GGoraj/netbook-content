@@ -20,11 +20,8 @@ public class MarkedToReadController {
 
  @GetMapping("/user/bookstoread/{id}")
     public List<Book> getBookById(@PathVariable("id") int id){
-
         return dao.get(id);
-
     }
-
 
 
 }
