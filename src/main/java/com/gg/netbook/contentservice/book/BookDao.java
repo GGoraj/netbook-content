@@ -1,17 +1,16 @@
 package com.gg.netbook.contentservice.book;
 
-import com.gg.netbook.contentservice.author.Author;
-
 import java.util.List;
 import java.util.Optional;
 
 public interface BookDao<T> {
 
-    Optional<T> get(int id);
+    Optional<Book> get(int id);
+
 
     List<T> getAll(int limit);
 
-    List<Author> getBookAuthors(int id);
+    String getBookAuthors(int id);
 
     void save(T t);
 
