@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Book, Tag, Author, BooksAuthors, MarkedToRead, Books_Tags, BooksTagsTemp;
+DROP TABLE IF EXISTS Book, Tag, tags_books, Author, authors_books, MarkedToRead;
 
 CREATE TABLE Book
 (
@@ -13,6 +13,7 @@ CREATE TABLE Book
   ratingscount INTEGER,
   imageurl TEXT,
   smallimageurl TEXT,
+  bookurl TEXT,
   PRIMARY KEY (id)
 );
 
@@ -46,17 +47,17 @@ CREATE TABLE tags_books(
 COPY book(goodreadsbook_id, isbn, originalpublicationyear, originaltitle,
 internationaltitle, languagecode, averagerating,
 ratingscount, imageurl, smallimageurl)
-FROM '/home/quenar/Desktop/DLS/Project/netbook/netbook-content/database/books_proc.csv' DELIMITER ',' CSV HEADER;
+FROM '/home/quenar/Desktop/DLS/Project/netbook/content/netbook-content/database/books_proc.csv' DELIMITER ',' CSV HEADER;
 
 
 COPY markedtoread(user_id, book_id)
-FROM '/home/quenar/Desktop/DLS/Project/netbook/netbook-content/database/to_read.csv' DELIMITER ',' CSV HEADER;
+FROM '/home/quenar/Desktop/DLS/Project/netbook/content/netbook-content/database/to_read.csv' DELIMITER ',' CSV HEADER;
 
 COPY tag(id, tagname)
-From '/home/quenar/Desktop/DLS/Project/netbook/netbook-content/database/tags.csv' DELIMITER ',' CSV HEADER;
+From '/home/quenar/Desktop/DLS/Project/netbook/content/netbook-content/database/tags.csv' DELIMITER ',' CSV HEADER;
 
 COPY bookstagstemp(goodreadsbook_id, tag_id, counter)
-From '/home/quenar/Desktop/DLS/Project/netbook/netbook-content/database/bookstags.csv' DELIMITER ',' CSV HEADER;
+From '/home/quenar/Desktop/DLS/Project/netbook/content/netbook-content/database/bookstags.csv' DELIMITER ',' CSV HEADER;
 
 INSERT INTO tags_books SELECT DISTINCT ON (bookstagstemp.goodreadsbook_id, bookstagstemp.tag_id) * FROM BooksTagsTemp;
 DROP TABLE BooksTagsTemp;
@@ -74,7 +75,7 @@ CREATE TABLE authors_books(
 );
 
 COPY author(fullname)
-FROM '/home/quenar/Desktop/DLS/Project/netbook/netbook-content/database/author.csv' DELIMITER ',' CSV HEADER;
+FROM '/home/quenar/Desktop/DLS/Project/netbook/content/netbook-content/database/author.csv' DELIMITER ',' CSV HEADER;
 
 COPY authors_books(book_id, author_id)
-FROM '/home/quenar/Desktop/DLS/Project/netbook/netbook-content/database/booksauthors.csv' DELIMITER ',' CSV HEADER;
+FROM '/home/quenar/Desktop/DLS/Project/netbook/content/netbook-content/database/booksauthors.csv' DELIMITER ',' CSV HEADER;

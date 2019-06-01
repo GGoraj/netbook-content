@@ -46,9 +46,15 @@ public class Book {
     @Column(name="smallimageurl")
     private String smallimageurl;
 
+    @Column(name="bookurl")
+    private String bookurl;
+
     @ManyToMany(mappedBy="books")
     @JsonIgnore
     Set<Author>  authors;
+
+
+
 
 
 
@@ -140,6 +146,14 @@ public class Book {
         this.smallimageurl = smallimageurl;
     }
 
+    public String getBookurl() {
+        return bookurl;
+    }
+
+    public void setBookurl(String bookurl) {
+        this.bookurl = bookurl;
+    }
+
     public Set<Author> getAuthors() {
         return authors;
     }
@@ -147,5 +161,4 @@ public class Book {
     public void setAuthors(Set<Author> authors) {
         this.authors = authors;
     }
-
 }

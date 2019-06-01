@@ -20,10 +20,10 @@ public class JpaMarkedToReadDao implements MarkedToReadDao<MarkedToRead>{
     }
 
     @Override
-    public List<MarkedToRead> getAll(int id) {
-
-        return nullyes;
+    public List<MarkedToRead> getAll() {
+        return null;
     }
+
 
     @Override
     public void save(MarkedToRead markedToRead) {
