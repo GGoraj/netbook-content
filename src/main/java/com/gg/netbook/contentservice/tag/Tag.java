@@ -1,7 +1,7 @@
-/*
 package com.gg.netbook.contentservice.tag;
 
 import com.gg.netbook.contentservice.book.Book;
+import com.gg.netbook.contentservice.tags_books.TagsBooks;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -18,12 +18,8 @@ public class Tag {
     private String tagName;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "tags_books",
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private Set<Book> books;
+    @OneToMany(mappedBy = "tag")
+    private Set<TagsBooks> books;
 
 
 
@@ -35,8 +31,6 @@ public class Tag {
 
         this.tagName = tagName;
     }
-
-
 
 
     public Integer getId() {
@@ -54,5 +48,14 @@ public class Tag {
     public void setTagName(String tagName) {
         this.tagName = tagName;
     }
+
+    public Set<TagsBooks> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<TagsBooks> books) {
+        this.books = books;
+    }
+
+
 }
-*/

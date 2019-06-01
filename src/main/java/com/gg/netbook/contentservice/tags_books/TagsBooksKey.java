@@ -1,11 +1,11 @@
-/*
 package com.gg.netbook.contentservice.tags_books;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
-public class TagsBooksKey {
+public class TagsBooksKey implements Serializable {
 
 
     @Column(name="goodreadsbook_id")
@@ -42,4 +42,3 @@ public class TagsBooksKey {
         this.tagId = tagId;
     }
 }
-*/
