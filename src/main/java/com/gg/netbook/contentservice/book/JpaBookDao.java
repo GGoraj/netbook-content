@@ -6,8 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class JpaBookDao implements BookDao<Book> {
@@ -36,10 +35,25 @@ public class JpaBookDao implements BookDao<Book> {
 
     @Override
     public List<Author> getBookAuthors(int id) {
-        String q = "select distinct author from Author author join a.FullName fullname join b.book_id book_id where author.book_id = :book_id";
-        Query query = em.createQuery(q, Book.class);
-        List<Author> authors = query.getResultList();
-        return authors;
+
+        Optional<Book> opt = Optional.ofNullable(em.find(Book.class, id));
+        Set<Author> authors = (Set<Author>) opt.get().authors;
+
+        if(authors.isEmpty()){
+            return null;
+        }
+
+        ArrayList<Author> listAuthors = new ArrayList<>();
+        Iterator iterator = authors.iterator();
+        while(iterator.hasNext()) {
+            Author author = (Author) iterator.next();
+            Author a = new Author();
+            a.setId(author.getId());
+            a.setFullName(author.getFullName());
+            listAuthors.add(a);
+        }
+        return listAuthors;
+
     }
 
     @Override
@@ -56,4 +70,6 @@ public class JpaBookDao implements BookDao<Book> {
     public void delete(Book book) {
 
     }
+
+
 }
