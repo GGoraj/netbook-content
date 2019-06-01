@@ -1,3 +1,4 @@
+/*
 package com.gg.netbook.contentservice.markedtoread;
 
 import javax.persistence.Column;
@@ -11,28 +12,29 @@ import java.io.Serializable;
 public class MarkedToRead implements Serializable {
 
     @Id
-    @Column(name="userid")
-    private Integer userId;
+    @Column(name="user_id")
+    private Integer user_id;
 
     @Id
-    @Column(name="bookid")
-    private Integer bookId;
+    @Column(name="book_id")
+    private Integer book_id;
 
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public Integer getBookId() {
-        return bookId;
+        return book_id;
     }
 
     public void setBookId(Integer bookId) {
-        this.bookId = bookId;
+        this.book_id = bookId;
     }
 
 }
+*/

@@ -1,4 +1,4 @@
-package com.gg.netbook.contentservice.books;
+package com.gg.netbook.contentservice.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
