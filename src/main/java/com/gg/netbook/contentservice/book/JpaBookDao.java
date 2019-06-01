@@ -20,7 +20,10 @@ public class JpaBookDao implements BookDao<Book> {
     public Optional<Book> get(int id) {
 
         Optional<Book> book = Optional.ofNullable(em.find(Book.class, id));
-        return book;
+
+
+       return book;
+
     }
 
     @Override
@@ -34,27 +37,13 @@ public class JpaBookDao implements BookDao<Book> {
     }
 
     @Override
-    public List<Author> getBookAuthors(int id) {
-
-        Optional<Book> opt = Optional.ofNullable(em.find(Book.class, id));
-        Set<Author> authors = (Set<Author>) opt.get().authors;
-
-        if(authors.isEmpty()){
-            return null;
-        }
-
-        ArrayList<Author> listAuthors = new ArrayList<>();
-        Iterator iterator = authors.iterator();
-        while(iterator.hasNext()) {
-            Author author = (Author) iterator.next();
-            Author a = new Author();
-            a.setId(author.getId());
-            a.setFullName(author.getFullName());
-            listAuthors.add(a);
-        }
-        return listAuthors;
-
+    public String getBookAuthors(int id) {
+        Optional<Book> book = Optional.ofNullable(em.find(Book.class, id));
+        Set<Author> authors = (Set<Author>) book.get().authors;
+        System.out.println(authors.toString());
+        return authors.toString();
     }
+
 
     @Override
     public void save(Book book) {

@@ -1,10 +1,12 @@
 package com.gg.netbook.contentservice.author;
 
+import com.gg.netbook.contentservice.book.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -30,5 +32,12 @@ public class AuthorController {
     public List<Author> getAuthorFullSearch(@PathVariable("name") String name){
         return authorDao.searchFuzzyAuthorName(name);
     }
+
+   /* @GetMapping("/author/books/{author_id}")
+    public Set<Book> getAuthorBooks(@PathVariable("author_id") Integer author_id){
+        return authorDao.getAuthorBooks(author_id);
+    }*/
+
+
 
 }
