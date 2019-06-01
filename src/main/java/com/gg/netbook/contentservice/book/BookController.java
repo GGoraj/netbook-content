@@ -25,7 +25,7 @@ public class BookController {
     }
 
     @GetMapping("book/authors/{id}")
-    public String getBookAuthors(@PathVariable("id") Integer id){
+    public Set<Author> getBookAuthors(@PathVariable("id") Integer id){
         return jpaBookDao.getBookAuthors(id);
     }
 }
