@@ -1,38 +1,25 @@
+/*
 package com.gg.netbook.contentservice.markedtoread;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.gg.netbook.contentservice.book.Book;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name="markedtoread")
 public class MarkedToRead implements Serializable {
 
-    @Id
-    @Column(name="userid")
-    private Integer userId;
 
-    @Id
-    @Column(name="bookid")
-    private Integer bookId;
+    @EmbeddedId
+    MarkedToReadKey id;
+
+    @ManyToOne
+    @MapsId("book_id")
+    @JoinColumn(name = "book_id")
+    Book book;
 
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Integer bookId) {
-        this.bookId = bookId;
-    }
 
 }
+*/

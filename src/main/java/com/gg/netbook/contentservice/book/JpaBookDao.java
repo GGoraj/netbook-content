@@ -1,4 +1,4 @@
-package com.gg.netbook.contentservice.books;
+package com.gg.netbook.contentservice.book;
 
 import org.springframework.stereotype.Component;
 
@@ -26,7 +26,7 @@ public class JpaBookDao implements BookDao<Book> {
     @Override
     public List<Book> getAll(int limit) {
 
-        String q = "SELECT b FROM Book b ORDER BY b.bookid";
+        String q = "SELECT b FROM Book b ORDER BY b.id";
         Query query = em.createQuery(q, Book.class).setMaxResults(limit);
 
         return query.getResultList();

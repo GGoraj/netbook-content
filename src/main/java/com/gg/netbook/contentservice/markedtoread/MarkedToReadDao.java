@@ -1,3 +1,4 @@
+/*
 package com.gg.netbook.contentservice.markedtoread;
 
 import java.util.List;
@@ -16,3 +17,4 @@ public interface MarkedToReadDao<T> {
     void delete(T t);
 
 }
+*/
