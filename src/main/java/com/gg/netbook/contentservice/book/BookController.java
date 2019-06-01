@@ -1,5 +1,6 @@
 package com.gg.netbook.contentservice.book;
 
+import com.gg.netbook.contentservice.author.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,5 +21,10 @@ public class BookController {
     @GetMapping("/book/{id}")
     public Optional<Book> getBookById(@PathVariable("id") Integer id){
         return jpaBookDao.get(id);
+    }
+
+    @GetMapping("book/authors/{id}")
+    public List<Author> getBookAuthors(@PathVariable("id") Integer id){
+        return jpaBookDao.getBookAuthors(id);
     }
 }

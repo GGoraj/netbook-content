@@ -2,6 +2,8 @@ package com.gg.netbook.contentservice.book;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gg.netbook.contentservice.author.Author;
+import com.gg.netbook.contentservice.tag.Tag;
+import com.gg.netbook.contentservice.tags_books.TagsBooks;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,47 +18,46 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="goodreadsbook_id")
+    @Column(name = "goodreadsbook_id")
     private Integer goodreadsbook_Id;
 
-    @Column(name="isbn")
+    @Column(name = "isbn")
     private String isbn;
 
-    @Column(name="originalpublicationyear")
+    @Column(name = "originalpublicationyear")
     private String originalpublicationyear;
 
-    @Column(name="originaltitle")
+    @Column(name = "originaltitle")
     private String originaltitle;
 
-    @Column(name="internationaltitle")
+    @Column(name = "internationaltitle")
     private String internationaltitle;
 
-    @Column(name="languagecode")
+    @Column(name = "languagecode")
     private String languagecode;
 
-    @Column(name="averagerating")
+    @Column(name = "averagerating")
     private BigDecimal averagerating;
 
-    @Column(name="ratingscount")
+    @Column(name = "ratingscount")
     private Integer ratingscount;
 
-    @Column(name="imageurl")
+    @Column(name = "imageurl")
     private String imageUrl;
 
-    @Column(name="smallimageurl")
+    @Column(name = "smallimageurl")
     private String smallimageurl;
 
-    @Column(name="bookurl")
+    @Column(name = "bookurl")
     private String bookurl;
 
-    @ManyToMany(mappedBy="books")
+    @ManyToMany(mappedBy = "books")
     @JsonIgnore
-    Set<Author>  authors;
+    Set<Author> authors;
 
-
-
-
-
+    @OneToMany(mappedBy = "book")
+    @JsonIgnore
+    Set<TagsBooks> tags;
 
     public Integer getId() {
         return id;
@@ -160,5 +161,13 @@ public class Book {
 
     public void setAuthors(Set<Author> authors) {
         this.authors = authors;
+    }
+
+    public Set<TagsBooks> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<TagsBooks> tags) {
+        this.tags = tags;
     }
 }
