@@ -16,11 +16,11 @@ public class Author {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Integer id;
 
 
     @Column(name="fullname")
-    public String fullName;
+    private String fullName;
 
 
     @ManyToMany
@@ -31,7 +31,14 @@ public class Author {
     private Set<Book> books;
 
 
+    public Author(Integer id, String fullName) {
+        this.id = id;
+        this.fullName = fullName;
+    }
 
+    public Author() {
+        //blank
+    }
 
     public Set<Book> getBooks() {
         return books;
@@ -57,6 +64,11 @@ public class Author {
         this.fullName = fullName;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                '}';
+    }
 }
