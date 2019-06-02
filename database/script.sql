@@ -1,66 +1,136 @@
-DROP TABLE IF EXISTS Book, Tag, tags_books, Author, authors_books, MarkedToRead;
+DROP TABLE IF EXISTS users, book, tag, author, authors_books, markedtoread, tags_books, books_tags_temp, users_temp, users_ratings_temp, books_temp, tags_temp;
 
-CREATE TABLE Book
+
+CREATE TABLE users
 (
-  id serial NOT NULL,
-  goodreadsbook_id INTEGER UNIQUE,
-  isbn TEXT,
-  originalpublicationyear VARCHAR(7),
-  originaltitle TEXT,
-  internationaltitle TEXT,
-  languagecode VARCHAR(5),
-  averagerating DECIMAL,
-  ratingscount INTEGER,
-  imageurl TEXT,
-  smallimageurl TEXT,
-  bookurl TEXT,
-  PRIMARY KEY (id)
+    id serial NOT NULL,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE MarkedToRead(
-  id serial NOT Null,
-  user_id INTEGER,
-  book_id INTEGER REFERENCES book(id) ON DELETE CASCADE,
-  PRIMARY KEY (id)
+CREATE TABLE users_temp
+(
+    id INTEGER,
+    skip1 INTEGER,
+    skip2 INTEGER
 );
+
+\COPY users_temp(id,skip1,skip2) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/dataset/ratings.csv' DELIMITER ',' CSV HEADER;
+
+INSERT INTO users (id) SELECT DISTINCT ON (users_temp.id) id FROM users_temp ORDER BY id;
+DROP TABLE users_temp;
+
+CREATE TABLE book
+(
+    id serial NOT NULL,
+    goodreadsbook_id INTEGER UNIQUE,
+    isbn TEXT,
+    originalpublicationyear VARCHAR(7),
+    originaltitle TEXT,
+    internationaltitle TEXT,
+    languagecode VARCHAR(5),
+    averagerating DECIMAL,
+    ratingscount INTEGER,
+    imageurl TEXT,
+    smallimageurl TEXT,
+    bookurl TEXT,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE books_temp
+(
+    id INTEGER,
+    goodreadsbookid INTEGER,
+    bestbookid INTEGER,
+    workid INTEGER,
+    bookscount INTEGER,
+    isbn TEXT,
+    isbn13 TEXT,
+    authors TEXT,
+    originalpublicationyear VARCHAR(7),
+    originaltitle TEXT,
+    internationaltitle TEXT,
+    languagecode VARCHAR(5),
+    averagerating DECIMAL,
+    ratingscount INTEGER,
+    workratingscount INTEGER,
+    worktextreviewscount INTEGER,
+    ratings1 INTEGER,
+    ratings2 INTEGER,
+    ratings3 INTEGER,
+    ratings4 INTEGER,
+    ratings5 INTEGER,
+    imageurl TEXT,
+    smallimageurl TEXT
+);
+
+
+\COPY books_temp(id,goodreadsbookid,bestbookid,workid,bookscount,isbn,isbn13,authors,originalpublicationyear,originaltitle,internationaltitle,languagecode,averagerating,ratingscount,workratingscount,worktextreviewscount,ratings1,ratings2,ratings3,ratings4,ratings5,imageurl,smallimageurl) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/dataset/books.csv' DELIMITER ',' CSV HEADER;
+
+INSERT INTO book (id, goodreadsbook_id, isbn, originalpublicationyear, originaltitle, internationaltitle, languagecode, averagerating, ratingscount, imageurl, smallimageurl)
+SELECT DISTINCT ON (books_temp.id) id, goodreadsbookid, isbn, originalpublicationyear, originaltitle, internationaltitle, languagecode, averagerating, ratingscount, imageurl, smallimageurl FROM books_temp ORDER BY id;
+DROP TABLE books_temp;
 
 
 CREATE TABLE tag(
-  id INTEGER,
-  tagname TEXT,
-  PRIMARY KEY (id)
+    id serial NOT NULL,
+    tagname TEXT,
+    PRIMARY KEY (id)
 );
 
+\COPY tag(id, tagname) From '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/dataset/tags.csv' DELIMITER ',' CSV HEADER;
 
-CREATE TABLE bookstagstemp(
- goodreadsbook_id Integer,
- tag_id Integer,
- counter Integer
-);
 
 CREATE TABLE tags_books(
-  goodreadsbook_id Integer REFERENCES book(goodreadsbook_id) ON DELETE CASCADE,
-  tag_id Integer REFERENCES tag(id) ON DELETE CASCADE,
-  counter INTEGER,
-  PRIMARY KEY (goodreadsbook_id, tag_id)
+   book_id INTEGER REFERENCES book(id) ON DELETE CASCADE,
+   tag_id INTEGER REFERENCES tag(id) ON DELETE CASCADE,
+   counter INTEGER,
+   PRIMARY KEY (book_id, tag_id)
 );
 
-\COPY book(goodreadsbook_id, isbn, originalpublicationyear, originaltitle, internationaltitle, languagecode, averagerating, ratingscount, imageurl, smallimageurl) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/database/books_proc.csv' DELIMITER ',' CSV HEADER;
+CREATE TABLE books_tags_temp(
+    book_id INTEGER,
+    tag_id INTEGER,
+    counter INTEGER
+);
+
+\COPY books_tags_temp(book_id, tag_id, counter) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/dataset/book_tags.csv' DELIMITER ',' CSV HEADER;
+
+INSERT INTO tags_books SELECT DISTINCT ON (books_tags_temp.book_id, books_tags_temp.tag_id, books_tags_temp.counter) * FROM books_tags_temp ON CONFLICT DO NOTHING;
+DROP TABLE books_tags_temp;
+
+CREATE TABLE MarkedToRead(
+ id serial NOT Null,
+ user_id INTEGER,
+ book_id INTEGER REFERENCES book(id) ON DELETE CASCADE,
+ PRIMARY KEY (id)
+);
+
+\COPY markedtoread(user_id, book_id) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/dataset/to_read.csv' DELIMITER ',' CSV HEADER;
 
 
-\COPY markedtoread(user_id, book_id) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/database/to_read.csv' DELIMITER ',' CSV HEADER;
+CREATE TABLE ratings(
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    book_id INTEGER REFERENCES book(id) ON DELETE CASCADE,
+    rating INTEGER,
+    PRIMARY KEY (book_id, user_id)
+);
 
-\COPY tag(id, tagname) From '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/database/tags.csv' DELIMITER ',' CSV HEADER;
+CREATE TABLE usersratingstemp(
+ user_id INTEGER,
+ book_id INTEGER,
+ rating INTEGER
+);
 
-\COPY bookstagstemp(goodreadsbook_id, tag_id, counter) From '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/database/bookstags.csv' DELIMITER ',' CSV HEADER;
+\COPY usersratingstemp(user_id, book_id, rating) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/dataset/ratings.csv' DELIMITER ',' CSV HEADER;
 
-INSERT INTO tags_books SELECT DISTINCT ON (bookstagstemp.goodreadsbook_id, bookstagstemp.tag_id) * FROM BooksTagsTemp;
-DROP TABLE BooksTagsTemp;
+INSERT INTO ratings SELECT DISTINCT ON (usersratingstemp.user_id, usersratingstemp.book_id) * FROM usersratingstemp;
+DROP TABLE usersratingstemp;
+
 
 CREATE TABLE author(
-  id serial NOT NULL,
-  fullname TEXT,
-  PRIMARY KEY (id)
+   id serial NOT NULL,
+   fullname TEXT,
+   PRIMARY KEY (id)
 );
 
 CREATE TABLE authors_books(
@@ -69,6 +139,6 @@ CREATE TABLE authors_books(
   PRIMARY KEY (author_id, book_id)
 );
 
-\COPY author(fullname) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/database/author.csv' DELIMITER ',' CSV HEADER;
+\COPY author(fullname) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/dataset/author.csv' DELIMITER ',' CSV HEADER;
 
-\COPY authors_books(book_id, author_id) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/database/booksauthors.csv' DELIMITER ',' CSV HEADER;
+\COPY authors_books(book_id, author_id) FROM '/Users/petyabuchkova/Desktop/KEA/dls/netbook-content/dataset/booksauthors.csv' DELIMITER ',' CSV HEADER;

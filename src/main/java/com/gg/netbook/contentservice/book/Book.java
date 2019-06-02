@@ -2,12 +2,9 @@ package com.gg.netbook.contentservice.book;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gg.netbook.contentservice.author.Author;
-import com.gg.netbook.contentservice.tag.Tag;
-import com.gg.netbook.contentservice.tags_books.TagsBooks;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -54,11 +51,6 @@ public class Book {
     @ManyToMany(mappedBy = "books")
     @JsonIgnore
     Set<Author> authors;
-
-    @OneToMany(mappedBy = "book")
-    @JsonIgnore
-    Set<TagsBooks> tags;
-
 
     public Integer getId() {
         return id;
@@ -164,11 +156,4 @@ public class Book {
         this.authors = authors;
     }
 
-    public Set<TagsBooks> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<TagsBooks> tags) {
-        this.tags = tags;
-    }
 }
